@@ -1,0 +1,23 @@
+<%- include("navbar") %>
+
+<div class="container mt-5" style="max-width: 400px">
+  <h3>Register</h3>
+  <p id="msg" class="text-danger"></p>
+
+  <form id="form">
+    <input name="username" class="form-control mb-2" placeholder="Username" required>
+    <input name="email" type="email" class="form-control mb-2" placeholder="Email" required>
+    <input name="password" type="password" class="form-control mb-2" placeholder="Parol" required>
+    <button class="btn btn-warning w-100">Ro'yxatdan o'tish</button>
+  </form>
+</div>
+
+<script>
+  form.onsubmit = async (e) => {
+    e.preventDefault()
+    const body = Object.fromEntries(new FormData(form)) // {username, email, password}
+    const { ok, data } = await api("/register", body)
+    if (!ok) return (msg.textContent = data.message)
+    location.href = "/verify?email=" + encodeURIComponent(body.email) // emailga kod ketdi
+  }
+</script>

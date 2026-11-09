@@ -1,0 +1,44 @@
+<%- include("navbar") %>
+
+<!-- Karusel -->
+<div id="karusel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://picsum.photos/id/1/1200/350" class="d-block w-100">
+    </div>
+    <div class="carousel-item">
+      <img src="https://picsum.photos/id/2/1200/350" class="d-block w-100">
+    </div>
+  </div>
+  <button class="carousel-control-prev" data-bs-target="#karusel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" data-bs-target="#karusel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+<div class="container mt-4">
+
+  <!-- Faqat admin ko'radi -->
+  <% if (user && user.role === "admin") { %>
+    <form action="/add-product" method="POST" class="d-flex gap-2 mb-4">
+      <input name="title" class="form-control" placeholder="Mahsulot nomi" required>
+      <input name="price" type="number" class="form-control" placeholder="Narxi" required>
+      <button class="btn btn-success">Qo'shish</button>
+    </form>
+  <% } %>
+
+  <!-- Mahsulotlar (backenddan keladi) -->
+  <div class="row">
+    <% products.forEach(p => { %>
+      <div class="col-4 mb-3">
+        <div class="card p-3">
+          <h5><%= p.title %></h5>
+          <p><%= p.price %> so'm</p>
+          <button class="btn btn-primary">Sotib olish</button>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>

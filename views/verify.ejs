@@ -1,0 +1,22 @@
+<%- include("navbar") %>
+
+<div class="container mt-5" style="max-width: 400px">
+  <h3>Emailni tasdiqlang</h3>
+  <p><b><%= email %></b> ga 6 xonali kod yuborildi</p>
+  <p id="msg" class="text-danger"></p>
+
+  <form id="form">
+    <input type="hidden" name="email" value="<%= email %>">
+    <input name="otp" class="form-control mb-2" placeholder="Kod" required>
+    <button class="btn btn-success w-100">Tasdiqlash</button>
+  </form>
+</div>
+
+<script>
+  form.onsubmit = async (e) => {
+    e.preventDefault()
+    const { ok, data } = await api("/verify", Object.fromEntries(new FormData(form)))
+    if (!ok) return (msg.textContent = data.message)
+    location.href = "/login" // tasdiqlandi — endi login qilish mumkin
+  }
+</script>

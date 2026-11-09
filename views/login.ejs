@@ -1,0 +1,23 @@
+<%- include("navbar") %>
+
+<div class="container mt-5" style="max-width: 400px">
+  <h3>Login</h3>
+  <p id="msg" class="text-danger"></p>
+
+  <form id="form">
+    <input name="email" type="email" class="form-control mb-2" placeholder="Email" required>
+    <input name="password" type="password" class="form-control mb-2" placeholder="Parol" required>
+    <button class="btn btn-dark w-100">Kirish</button>
+  </form>
+</div>
+
+<script>
+  form.onsubmit = async (e) => {
+    e.preventDefault()
+    const body = Object.fromEntries(new FormData(form)) // {email, password}
+    const { ok, data } = await api("/login", body)
+    if (!ok) return (msg.textContent = data.message)
+    localStorage.setItem("token", data.token) // tokenni saqlaymiz
+    location.href = "/"
+  }
+</script>
